@@ -15,7 +15,7 @@
     <main class="p-3 m:p-10 h-full flex flex-col">
       <div
         ref="inputAreaContainer"
-        class="flex flex-row space-x-4 items-start flex-grow overflow-x-auto py-2 px-2"
+        class="flex flex-1 flex-row space-x-4 items-start flex-grow overflow-x-auto py-2 px-2"
       >
         <InputArea
           v-for="(input, i) in inputs"
@@ -29,10 +29,10 @@
           v-on:click="this.addInputArea"
           class="text-white bg-blue-600 hover:bg-blue-500 focus:border-blue-700 active:bg-blue-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md"
         >
-          {{ $t('addInputBtn') }}
+          {{ $t("addInputBtn") }}
         </button>
       </div>
-      <div class="flex flex-col md:items-baseline pt-10">
+      <div class="flex flex-col md:items-baseline md:mt-10">
         <div
           class="flex flex-col md:flex-row md:items-baseline text-center space-y-4 md:space-x-4"
         >
@@ -40,9 +40,9 @@
             @click="generateSentences"
             class="text-white bg-blue-600 hover:bg-blue-500 focus:border-blue-700 active:bg-blue-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md"
           >
-            {{ $t('generateBtn') }}
+            {{ $t("generateBtn") }}
           </button>
-          <p>{{ $t('inputWordLabel') }}</p>
+          <p>{{ $t("inputWordLabel") }}</p>
           <input
             v-model="settings.nbWords"
             class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded py-1 px-2 width-full block leading-normal"
@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import InputArea from './components/InputArea';
+import Vue from "vue";
+import InputArea from "./components/InputArea";
 
 function shuffle(words) {
   let newText = [];
@@ -79,7 +79,7 @@ function capitalize(word) {
 }
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     InputArea,
   },
@@ -87,15 +87,15 @@ export default {
     return {
       inputs: [
         {
-          content: this.$i18n.t('inputAreaTextExample1'),
+          content: this.$i18n.t("inputAreaTextExample1"),
           enabled: true,
         },
         {
-          content: this.$i18n.t('inputAreaTextExample2'),
+          content: this.$i18n.t("inputAreaTextExample2"),
           enabled: true,
         },
       ],
-      outputContent: '',
+      outputContent: "",
       settings: {
         nbWords: 6,
       },
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     addInputArea() {
-      this.inputs.push({ content: '', enabled: true });
+      this.inputs.push({ content: "", enabled: true });
       // Autoscroll
       Vue.nextTick(() => {
         this.$refs.inputAreaContainer.scrollLeft = this.$refs.inputAreaContainer.scrollWidth;
@@ -119,14 +119,14 @@ export default {
       const sentences = this.inputs
         .filter((input) => input.enabled)
         .map((input) => input.content)
-        .join(' ');
+        .join(" ");
 
       const words = sentences
-        .replace(/\n|\r/g, ' ')
+        .replace(/\n|\r/g, " ")
         // Remove punctuation
         // .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
-        .split(' ')
-        .filter((w) => w.trim() !== '');
+        .split(" ")
+        .filter((w) => w.trim() !== "");
 
       const shuffled = shuffle(words);
       const cutWords = [];
@@ -140,7 +140,7 @@ export default {
         if ((i + 1) % this.settings.nbWords === 0) {
           cutWords.push(shuffled[i]);
           if (i + 1 < len) {
-            cutWords.push('\n');
+            cutWords.push("\n");
             shuffled[i + 1] = capitalize(shuffled[i + 1]);
           }
         } else if (i + 1 < len) {
@@ -150,7 +150,7 @@ export default {
         }
       }
 
-      this.outputContent = cutWords.join('');
+      this.outputContent = cutWords.join("");
     },
   },
 };

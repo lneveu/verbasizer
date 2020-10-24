@@ -6,4 +6,7 @@ module.exports = {
       return args;
     });
   },
+  pwa: {
+    name: 'Verbasizer'
+  }
 };

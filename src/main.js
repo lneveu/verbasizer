@@ -33,6 +33,7 @@ const i18n = new VueI18n({
       inputAreaStatusBtnEnable: 'Enable',
       inputAreaStatusBtnDisable: 'Disable',
       inputAreaRemoveBtn: 'Remove',
+      installPWABtn: 'Install the app'
     },
     fr: {
       inputAreaTextExample1:
@@ -45,6 +46,7 @@ const i18n = new VueI18n({
       inputAreaStatusBtnEnable: 'Activer',
       inputAreaStatusBtnDisable: 'Désactiver',
       inputAreaRemoveBtn: 'Supprimer',
+      installPWABtn: 'Installer l\'application'
     },
   },
 });

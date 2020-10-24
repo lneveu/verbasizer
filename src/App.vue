@@ -1,13 +1,33 @@
 <template>
   <div class="bg-gray-100 h-screen px-10 flex flex-col">
-    <header class="flex justify-center md:justify-start">
+    <header class="flex relative justify-center md:justify-start">
       <a
-          href="https://www.youtube.com/watch?v=x3IKLMgFaDA"
-          class="underline"
-          target="_blank"
-          >
-          <img class="mt-4" src="/logo.png" alt="Verbasizer" style="width: 200px;display: inline;">
+        href="https://www.youtube.com/watch?v=x3IKLMgFaDA"
+        class="underline"
+        target="_blank"
+      >
+        <img
+          class="mt-4"
+          src="/logo.png"
+          alt="Verbasizer"
+          style="width: 200px; display: inline"
+        />
       </a>
+      <button
+        v-show="pwaShowInstallBtn"
+        v-on:click="this.install"
+        style="top: 15px"
+        class="absolute right-0 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-3 rounded inline-flex items-center"
+      >
+        <svg
+          class="fill-current w-4 h-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+        </svg>
+        <span class="hidden ml-2 md:block">{{ $t("installPWABtn") }}</span>
+      </button>
     </header>
     <main class="p-3 m:p-10 h-full flex flex-col">
       <div
@@ -96,7 +116,19 @@ export default {
       settings: {
         nbWords: 6,
       },
+      pwaShowInstallBtn: false,
+      pwaDeferredPrompt: undefined,
     };
+  },
+  created() {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      this.pwaDeferredPrompt = e;
+      // Update UI notify the user they can install the PWA
+      this.pwaShowInstallBtn = true;
+    });
   },
   methods: {
     addInputArea() {
@@ -148,6 +180,12 @@ export default {
       }
 
       this.outputContent = cutWords.join("");
+    },
+    install() {
+      // Hide the app provided install promotion
+      this.pwaShowInstallBtn = false;
+      // Show the install prompt
+      this.pwaDeferredPrompt.prompt();
     },
   },
 };

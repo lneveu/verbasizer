@@ -1,16 +1,13 @@
 <template>
   <div class="bg-gray-100 h-screen px-10 flex flex-col">
-    <header>
-      <h3
-        class="mt-4 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
-      >
-        <a
+    <header class="flex justify-center md:justify-start">
+      <a
           href="https://www.youtube.com/watch?v=x3IKLMgFaDA"
           class="underline"
           target="_blank"
-          >Verbasizer</a
-        >
-      </h3>
+          >
+          <img class="mt-4" src="/logo.png" alt="Verbasizer" style="width: 200px;display: inline;">
+      </a>
     </header>
     <main class="p-3 m:p-10 h-full flex flex-col">
       <div
